@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -18,18 +15,22 @@ public class Produto {
     private int quantidade;
     private float precoVenda;
     private float precoCompra;
-    private Categoria categoria;
+    private ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 
-    public Produto(int idProduto, String nome, String descricao, boolean disponivel,
-                   int quantidade, float precoVenda, float precoCompra, Categoria categoria) {
-        this.id = idProduto;
+    public Produto(long id, String nome, String descricao, boolean disponivel,
+                   int quantidade, float precoVenda, float precoCompra, ArrayList<Categoria> categoria) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.disponivel = disponivel;
         this.quantidade = quantidade;
         this.precoVenda = precoVenda;
         this.precoCompra = precoCompra;
-        this.categoria = categoria;
+        this.categorias = categoria;
+    }
+    
+    public long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -80,12 +81,12 @@ public class Produto {
         this.precoCompra = precoCompra;
     }
     
-    public Categoria getCategoria() {
-        return categoria;
+    public ArrayList<Categoria> getCategorias() {
+        return categorias;
     }
     
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategorias(ArrayList<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
 }
