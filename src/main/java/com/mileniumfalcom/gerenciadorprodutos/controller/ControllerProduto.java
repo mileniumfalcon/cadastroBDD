@@ -13,7 +13,7 @@ public class ControllerProduto {
    //Insere um produto na fonte de dados
     public static void cadastrarProduto(Produto produto)
             throws ProdutoException, DataException {
-
+        /*
         //Chama o validador para verificar o produto
         ValidadorProduto.validar(produto);
 
@@ -92,7 +92,7 @@ public class ControllerProduto {
             //uma exceção e uma mensagem amigável a camada de visão
             e.printStackTrace();
             throw new DataException("Erro na fonte de dados", e);
-        }
+        }*/
     }
 }
 
