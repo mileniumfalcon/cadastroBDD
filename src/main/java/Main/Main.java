@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mileniumfalcom.gerenciadorprodutos;
+package Main;
 
 /**
  *
  * @author Victor
  */
-public class main {
+public class Main {
     public static void main(String[] args) {
             System.out.println("teste");
             

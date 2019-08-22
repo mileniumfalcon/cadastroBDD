@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mileniumfalcom.gerenciadorprodutos.Model;
+package Model;
 
 /**
  *
@@ -11,20 +11,25 @@ package com.mileniumfalcom.gerenciadorprodutos.Model;
  */
 public class Produto {
 
-    private int id;
+    private long id;
     private String nome;
     private String descricao;
-    private boolean flagProduto;
+    private boolean disponivel;
+    private int quantidade;
     private float precoVenda;
     private float precoCompra;
+    private Categoria categoria;
 
-    public Produto(int idProduto, String nome, String descricao, boolean flagProduto, float precoVenda, float precoCompra) {
+    public Produto(int idProduto, String nome, String descricao, boolean disponivel,
+                   int quantidade, float precoVenda, float precoCompra, Categoria categoria) {
         this.id = idProduto;
         this.nome = nome;
         this.descricao = descricao;
-        this.flagProduto = flagProduto;
+        this.disponivel = disponivel;
+        this.quantidade = quantidade;
         this.precoVenda = precoVenda;
         this.precoCompra = precoCompra;
+        this.categoria = categoria;
     }
 
     public String getNome() {
@@ -43,12 +48,20 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public boolean isFlagProduto() {
-        return flagProduto;
+    public boolean isDisponivel() {
+        return disponivel;
     }
 
-    public void setFlagProduto(boolean flagProduto) {
-        this.flagProduto = flagProduto;
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+    
+    public int getQuantidade() {
+        return quantidade;
+    }
+    
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public float getPrecoVenda() {
@@ -65,6 +78,14 @@ public class Produto {
 
     public void setPrecoCompra(float precoCompra) {
         this.precoCompra = precoCompra;
+    }
+    
+    public Categoria getCategoria() {
+        return categoria;
+    }
+    
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
 }

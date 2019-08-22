@@ -1,14 +1,14 @@
-package com.mileniumfalcom.gerenciadorprodutos.Controller;
+package Controller;
 import com.mileniumfalcom.gerenciadorprodutos.Exception.DataException;
 import com.mileniumfalcom.gerenciadorprodutos.Exception.ProdutoException;
 import java.util.List;
 import java.util.List;
-import com.mileniumfalcom.gerenciadorprodutos.Model.Produto;
+import Model.Produto;
 /**
  *
  * @author Victor
  */
-public class ControllerProduto {
+public class ProdutoController {
  
    //Insere um produto na fonte de dados
     public static void cadastrarProduto(Produto produto)
