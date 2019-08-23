@@ -15,7 +15,7 @@ public class DbConnectionDAO {
     private static final String PASSWORD = "";
     private static final String URL = "jdbc:mysql://" + SERVER + "/" + DATABASE + "?useTimezone=true&serverTimezone=UTC";
 
-    public Connection openConnection() throws SQLException, ClassNotFoundException {
+    public static Connection openConnection() throws SQLException, ClassNotFoundException {
          try {
              Class.forName(DRIVER);
              Connection connection = DriverManager.getConnection(URL,LOGIN,PASSWORD);

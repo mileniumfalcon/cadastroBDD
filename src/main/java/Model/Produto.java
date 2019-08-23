@@ -32,7 +32,10 @@ public class Produto {
     public long getId() {
         return id;
     }
-
+    
+    // retirar esse metodo na versao final
+public long setId(long idd){
+return this.id = idd;}
     public Produto() {
         
     }
