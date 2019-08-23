@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import Model.Produto;
-import com.sun.istack.internal.logging.Logger;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +17,8 @@ import javax.swing.JOptionPane;
 public class ProdutoDAO {
 
     private DbConnectionDAO dbConnection = new DbConnectionDAO();
-
+    private Timestamp ts = new Timestamp(System.currentTimeMillis());
+    
     public void inserir(Produto p) throws SQLException, ClassNotFoundException {
         Connection con = dbConnection.openConnection();
         PreparedStatement stmt = null;
@@ -30,11 +30,9 @@ public class ProdutoDAO {
         stmt.setFloat(3, p.getPrecoCompra());
         stmt.setFloat(4, p.getPrecoVenda());
         stmt.setInt(5, p.getQuantidade());
-        stmt.setBoolean(6, true);
-        /* O que colocar no tipo data?
-                stmt.setDate(7, p);
-         */
-
+        stmt.setBoolean(6, p.isDisponivel());
+        stmt.setTimestamp(7, ts);
+        
         stmt.executeUpdate();
         JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
@@ -68,7 +66,7 @@ public class ProdutoDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         } finally {
             dbConnection.closeConnection(con);
         }
@@ -78,7 +76,7 @@ public class ProdutoDAO {
     }
     
     
-    public void atualizar(Produto p){
+    public void atualizar(Produto p) throws SQLException, ClassNotFoundException{
         Connection con = dbConnection.openConnection();
         
         PreparedStatement stmt = null;
@@ -93,10 +91,8 @@ public class ProdutoDAO {
             stmt.setFloat(4, p.getPrecoVenda());
             stmt.setInt(5, p.getQuantidade());
             stmt.setBoolean(6, true);
-            /* O que colocar no tipo data?
-                    stmt.setDate(7, p);
-             */
-            stmt.setInt(8, p.getId());
+            stmt.setTimestamp(7, ts);
+            stmt.setLong(8, p.getId());
 
             stmt.executeUpdate();
 
