@@ -1,9 +1,9 @@
 package Controller;
-import com.mileniumfalcom.gerenciadorprodutos.Exception.DataException;
-import com.mileniumfalcom.gerenciadorprodutos.Exception.ProdutoException;
 import java.util.List;
 import java.util.List;
 import Model.Produto;
+import DAO.Mockproduto;
+import java.math.BigInteger;
 /**
  *
  * @author Victor
@@ -13,13 +13,14 @@ public class ProdutoController {
    //Insere um produto na fonte de dados
     public static void cadastrarProduto(Produto produto)
             throws ProdutoException, DataException {
-        /*
+        
         //Chama o validador para verificar o produto
         ValidadorProduto.validar(produto);
 
         try {
             //Realiza a chamada de inserção na fonte de dados
-            DaoProduto.Inserir(produto);
+            //DaoProduto.Inserir(produto);
+            
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -37,7 +38,7 @@ public class ProdutoController {
 
         try {
             //Realiza a chamada de atualização na fonte de dados
-            DaoProduto.Atualizar(produto);
+            Mockproduto.atualizarProduto(produto);
             return;
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -55,9 +56,11 @@ public class ProdutoController {
             //Caso afirmativo, realiza uma listagem simples do mock.
             //Caso contrário, realiza uma pesquisa com o parâmetro
             if (nome == null || "".equals(nome)) {
-                return DaoProduto.listar();
+                return Mockproduto.listar();
+                        //DaoProduto.listar();
             } else {
-                return DaoProduto.Pesquisar(nome);
+                return Mockproduto.procurar(nome);
+                        //DaoProduto.Pesquisar(nome);
             }
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -68,11 +71,12 @@ public class ProdutoController {
     }
 
     //Obtem o produto com ID informado do mock
-    public static Produto obterProduto(Integer id)
+    public static Produto obterProduto(String nome)
             throws ProdutoException, DataException {
         try {
             //Retorna o produto obtido com o DAO
-            return DaoProduto.Obter(id);
+            return (Produto) Mockproduto.procurar(nome);
+                    //DaoProduto.Obter(id);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -86,13 +90,14 @@ public class ProdutoController {
             throws ProdutoException, DataException {
         try {
             //Solicita ao DAO a exclusão do produto informado
-            DaoProduto.Excluir(id);
+           // DaoProduto.Excluir(id);
+           Mockproduto.excluir(BigInteger.ONE);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
             e.printStackTrace();
             throw new DataException("Erro na fonte de dados", e);
-        }*/
+        }
     }
 }
 

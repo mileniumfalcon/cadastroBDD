@@ -1,5 +1,6 @@
 package Model;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Produto {
 
-    private long id;
+   private BigInteger id;
     private String nome;
     private String descricao;
     private boolean disponivel;
@@ -17,7 +18,7 @@ public class Produto {
     private float precoCompra;
     private ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 
-    public Produto(long id, String nome, String descricao, boolean disponivel,
+    public Produto(BigInteger id, String nome, String descricao, boolean disponivel,
                    int quantidade, float precoVenda, float precoCompra, ArrayList<Categoria> categoria) {
         this.id = id;
         this.nome = nome;
@@ -35,8 +36,18 @@ public class Produto {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public long getId() {
+    public BigInteger getId() {
         return id;
+    }
+    
+     public void setId(BigInteger totalprodutos) {
+        this.id = totalprodutos;
+    }
+    
+    // retirar esse metodo na versao final
+
+    public Produto() {
+        
     }
 
     public String getNome() {
@@ -62,6 +73,8 @@ public class Produto {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
+    public boolean getDisponivel(){
+     return this.disponivel;}
     
     public int getQuantidade() {
         return quantidade;
@@ -94,5 +107,7 @@ public class Produto {
     public void setCategorias(ArrayList<Categoria> categorias) {
         this.categorias = categorias;
     }
+
+   
 
 }
