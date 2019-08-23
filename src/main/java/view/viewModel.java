@@ -451,4 +451,8 @@ public class viewModel extends javax.swing.JPanel {
 
         return true;
     }
+
+    void toFront() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
