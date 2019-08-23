@@ -1,4 +1,4 @@
-package com.mileniumfalcom.gerenciadorprodutos.Exception;
+package Controller;
 
 //Indica uma exceção de produto
 public class ProdutoException extends Exception {

@@ -1,20 +1,21 @@
 package DAO;
+
 import java.util.ArrayList;
 import java.util.List;
 import Model.Produto;
+import java.math.BigInteger;
 
 public class Mockproduto {
-    
 
     // armazena a lista de produtos
     private static List<Produto> listaprodutos = new ArrayList<Produto>();
     //controle de quantidade de produtos
-    private static int totalprodutos = 0;
+    private static BigInteger totalprodutos;
 
     public static void inserir(Produto pro)
             throws Exception {
         //define ID para o produto atual
-        pro.setId(totalprodutos++);
+        pro.setId(totalprodutos.add(totalprodutos));
         listaprodutos.add(pro);
 
     }
@@ -25,24 +26,22 @@ public class Mockproduto {
      * @param produto
      * @throws Exception
      */
-    public static void atualizarproduto(Produto buscaproduto)
-            throws Exception {
-        if (buscaproduto != null && buscaproduto.getId() != null && !listaprodutos.isEmpty()) {
+    public static void atualizarProduto(Produto buscaproduto) throws Exception {
+
+        if (buscaproduto != null && buscaproduto.getId() != null && !listaprodutos.isEmpty()) //&& buscaproduto.getId() != null && !listaprodutos.isEmpty()
+        {
 
             for (Produto produtoLi : listaprodutos) {
                 if (produtoLi != null && produtoLi.getId() == buscaproduto.getId()) {
                     //esse if atribui os valores do produto a ser procurado na lista (produtoProcura) para o objeto produtoLi
                     produtoLi.setNome(buscaproduto.getNome());
-                    produtoLi.setSobrenome(buscaproduto.getSobrenome());
-                    produtoLi.setGenero(buscaproduto.getGenero());
-                    produtoLi.setDataNascimento(buscaproduto.getDataNascimento());
-                    produtoLi.setRua(buscaproduto.getRua());
-                    produtoLi.setBairro(buscaproduto.getBairro());
-                    produtoLi.setCep(buscaproduto.getCep());
-                    produtoLi.setCidade(buscaproduto.getCidade());
-                    produtoLi.setComplemento(buscaproduto.getComplemento());
-                    produtoLi.setCpf(buscaproduto.getCpf());
-                    produtoLi.setEstado(buscaproduto.getEstado());                    
+                    produtoLi.setCategorias(buscaproduto.getCategorias());
+                    produtoLi.setDescricao(buscaproduto.getDescricao());
+                    produtoLi.setDisponivel(buscaproduto.getDisponivel());
+                    produtoLi.setPrecoCompra(buscaproduto.getPrecoCompra());
+                    produtoLi.setPrecoVenda(buscaproduto.getPrecoVenda());
+                    produtoLi.setQuantidade(buscaproduto.getQuantidade());
+
                     break;
                 }
             }
@@ -55,7 +54,7 @@ public class Mockproduto {
      * @param id
      * @throws Exception
      */
-    public static void excluir(Integer id) throws Exception {
+    public static void excluir(BigInteger id) throws Exception {
         if (id != null && !listaprodutos.isEmpty()) {
 
             for (int i = 0; i < listaprodutos.size(); i++) {
@@ -96,42 +95,16 @@ public class Mockproduto {
         if (valor != null && !listaprodutos.isEmpty()) {
             for (Produto produtoLi : listaprodutos) {
                 if (produtoLi != null && produtoLi.getNome() != null) {
-                    if (produtoLi.getNome().toUpperCase().contains(valor.toUpperCase())) {
+                    if (produtoLi.getNome().toUpperCase().contains(valor.toUpperCase().trim())) {
                         listaResultado.add(produtoLi);
-                    }else if(produtoLi.getNome().toUpperCase().contains(valor.toUpperCase())){
-                        listaResultado.add(produtoLi);
-                    }else if(produtoLi.getDescricao().toUpperCase().contains(valor.toUpperCase())){
-                        listaResultado.add(produtoLi);
-                    }else if(produtoLi.getCategorias().contains(valor.toUpperCase())){
-                        listaResultado.add(produtoLi);
-        }
+                    }
 
-        return listaResultado;
-    }
-
-    /**
-     * Obtem um produto da lista
-     *
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    public static Produto obter(Long id)throws Exception {
-        if (id != null && !listaprodutos.isEmpty()) {
-            for (int i = 0; i < listaprodutos.size(); i++) {
-                if (listaprodutos.get(i) != null && listaprodutos.get(i).getId() == id) {
-                    return listaprodutos.get(i);
+                    return listaResultado;
                 }
+
             }
         }
         return null;
+
     }
 }
-
-
-    
-    
-    
-    
-    
-
