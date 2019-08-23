@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Main;
+import view.Menu;
+import view.viewModel;
 
 /**
  *
@@ -12,7 +14,10 @@ package Main;
 public class Main {
     public static void main(String[] args) {
             System.out.println("teste");
+            viewModel v = new viewModel();     
+            v.setVisible(true);
             
+        
         /*
             1 - incluir novo registro de produto com data do sistema e categoria
             2 - alterar registro de produto

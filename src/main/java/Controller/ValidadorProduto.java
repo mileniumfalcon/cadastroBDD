@@ -7,12 +7,6 @@ import Controller.ProdutoException;
  */
 class ValidadorProduto {
     
-    
-    
-        
-
-
-
     public static void validar(Produto produto) throws ProdutoException {
         //Realização de validações de negócio
         if (produto == null) {
