@@ -1,6 +1,9 @@
 package view;
 import Model.Produto;
+import java.util.ArrayList;
 import javax.swing.ButtonModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,10 +48,10 @@ public class viewModel extends javax.swing.JPanel {
         btnNovoProduto = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButtonSalvar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         btnExcluirProduto = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblProdutos = new javax.swing.JTable();
         btnPesquisarProduto = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnEditarProduto = new javax.swing.JButton();
@@ -134,7 +137,12 @@ public class viewModel extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(jList1);
 
-        jButtonSalvar.setText("Salvar");
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPnlDadosProdutoLayout = new javax.swing.GroupLayout(jPnlDadosProduto);
         jPnlDadosProduto.setLayout(jPnlDadosProdutoLayout);
@@ -152,7 +160,7 @@ public class viewModel extends javax.swing.JPanel {
                             .addGroup(jPnlDadosProdutoLayout.createSequentialGroup()
                                 .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtNomeProduto, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDescricao)))
                     .addGroup(jPnlDadosProdutoLayout.createSequentialGroup()
@@ -186,7 +194,7 @@ public class viewModel extends javax.swing.JPanel {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPnlDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovoProduto)
-                    .addComponent(jButtonSalvar))
+                    .addComponent(btnSalvar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPnlDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNomeProduto)
@@ -196,11 +204,12 @@ public class viewModel extends javax.swing.JPanel {
                     .addComponent(lblDescricao)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPnlDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrecoCompra)
-                    .addComponent(txtPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPnlDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPrecoVenda))
+                    .addGroup(jPnlDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblPrecoCompra)
+                        .addComponent(txtPrecoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPrecoVenda)))
                 .addGroup(jPnlDadosProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPnlDadosProdutoLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -223,7 +232,7 @@ public class viewModel extends javax.swing.JPanel {
         btnExcluirProduto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnExcluirProduto.setText("Excluir");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -249,7 +258,7 @@ public class viewModel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tblProdutos);
 
         btnPesquisarProduto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnPesquisarProduto.setText("Pesquisar");
@@ -347,11 +356,38 @@ public class viewModel extends javax.swing.JPanel {
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
         // TODO add your handling code here:ButtonModel m = null;
       
+        ArrayList<Produto> listaProdutos = new ArrayList<>();
+        
+        //listaProdutos = ProdutoDAO.getProdutos(txtNomeProduto.getText());
+                
+        if (listaProdutos.size() > 0) {
+            DefaultTableModel tmProdutos = (DefaultTableModel) this.tblProdutos.getModel();
+            tmProdutos.setRowCount(0);
+            
+            for(Produto produto : listaProdutos) {
+            
+            String[] c = {String.valueOf(produto.getNome()),
+                                         produto.getDescricao(),
+                                         String.valueOf(produto.getPrecoCompra()),
+                                         String.valueOf(produto.getPrecoVenda()),
+                                         String.valueOf(produto.getQuantidade()),
+                                          String.valueOf(produto.isDisponivel())};
+            tmProdutos.addRow(c);
+          }
+        } else {
+           JOptionPane.showMessageDialog(null, "Produto não encontrado");
+        }
+
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void txtPrecoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecoVendaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -360,7 +396,7 @@ public class viewModel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup btnFlag;
     private javax.swing.JButton btnNovoProduto;
     private javax.swing.JButton btnPesquisarProduto;
-    private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPnlDadosProduto;
     private javax.swing.JScrollPane jScrollPane1;
@@ -370,7 +406,6 @@ public class viewModel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblNomeProduto;
     private javax.swing.JLabel lblPrecoCompra;
@@ -378,10 +413,42 @@ public class viewModel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JRadioButton rdbtnDesabilitado;
     private javax.swing.JRadioButton rdbtnHhabilitado;
+    private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtNomeProduto;
     private javax.swing.JTextField txtPrecoCompra;
     private javax.swing.JTextField txtPrecoVenda;
     private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
+    public boolean validarFormulario(){
+        ArrayList <String> erros = new ArrayList<String>();
+        if(txtNomeProduto.getText().equals("")){
+            erros.add("Defina um nome");
+        }
+        if(txtPrecoCompra.getText().equals("")){
+            erros.add("Defina o preço de Compra");
+        }
+        if(txtPrecoVenda.getText().equals("")){
+            erros.add("Defina preço de Venda");
+        }
+        if(txtQuantidade.getText().equals("")){
+            erros.add("Defina a quantidade");
+        }
+        if(!rdbtnHhabilitado.isSelected() && !rdbtnDesabilitado.isSelected()){
+            erros.add("Defina o status");
+        }
+        
+        if (erros.size() > 0) {
+            String resposta = "";
+
+            for (String erro : erros) {
+                resposta += erro + "\n";
+            }
+
+            JOptionPane.showMessageDialog(null, resposta, "Campos Inválidos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
 }
