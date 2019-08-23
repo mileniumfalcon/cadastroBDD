@@ -28,6 +28,12 @@ public class Produto {
         this.precoCompra = precoCompra;
         this.categorias = categoria;
     }
+
+    
+    //construtor vazio, criado pelo java
+    public Produto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public long getId() {
         return id;
